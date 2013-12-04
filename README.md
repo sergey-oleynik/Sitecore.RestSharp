@@ -1,4 +1,4 @@
 Sitecore.RestSharp
 ==================
 
-Sitecore mapper for RestSharp library
+Sitecore mapper for RestSharp
