@@ -1,0 +1,36 @@
+﻿<configuration xmlns:patch="http://www.sitecore.net/xmlconfig/" xmlns:x="http://www.sitecore.net/xmlconfig/">
+  <sitecore>
+    <Sitecore.RestSharp>
+      <service name="ooyala" baseUrl="https://api.ooyala.com">
+        <jsonSerializer type="Sitecore.RestSharp.Serialization.JsonNetSerializer, Sitecore.RestSharp"/>
+        <xmlSerializer type="RestSharp.Serializers.XmlSerializer, RestSharp"/>
+        <handlers>
+          <add contentType="application/json" type="Sitecore.RestSharp.Serialization.JsonNetDeserializer, Sitecore.RestSharp"/>
+          <add contentType="text/json" type="Sitecore.RestSharp.Serialization.JsonNetDeserializer, Sitecore.RestSharp"/>
+          <add contentType="text/x-json" type="Sitecore.RestSharp.Serialization.JsonNetDeserializer, Sitecore.RestSharp"/>
+          <add contentType="text/javascript" type="Sitecore.RestSharp.Serialization.JsonNetDeserializer, Sitecore.RestSharp"/>
+        </handlers>
+
+        <authenticator type="Namespace.Type, Assembly"/>
+
+        <headers>
+          <header name="" value=""/>
+        </headers>
+
+        <tokens>
+          <add type="Sitecore.TakeRESTful.Tokens.TimestampToken, TakeRESTful"/>
+        </tokens>
+
+        <requests format="Json">
+          <!--
+              %26 - &
+          -->
+          <read method="GET" url="/v2/labels?api_key={apiKey}%26expires={timestamp}%26limit=500%26signature={signature}" responseType="Sitecore.RestSharp.Ooyala.Data.LabelListData, Sitecore.RestSharp.Ooyala"/>
+          <!--<read url="$url" method="GET" requestType="Namespace.Type, Assembly" responseType="Namespace.Type, Assembly"/>
+          <update url="$url" method="PUT" requestType="Namespace.Type, Assembly" responseType="Namespace.Type, Assembly"/>
+          <delete url="$url" method="DELETE" requestType="Namespace.Type, Assembly" responseType="Namespace.Type, Assembly"/>-->
+        </requests>
+      </service>
+    </Sitecore.RestSharp>
+  </sitecore>
+</configuration>
