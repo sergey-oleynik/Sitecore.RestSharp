@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Sitecore.RestSharp")]
-[assembly: AssemblyDescription("Sitecore mapper for RestSharp")]
+[assembly: AssemblyDescription("Sitecore mapper for RestSharp. GitHub: https://github.com/remember664/Sitecore.RestSharp")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Sitecore.RestSharp")]
