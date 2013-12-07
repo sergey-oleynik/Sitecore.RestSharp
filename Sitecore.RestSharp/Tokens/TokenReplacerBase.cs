@@ -22,18 +22,13 @@ namespace Sitecore.RestSharp.Tokens
 
   public abstract class TokenReplacerBase : ITokenReplacer
   {
-    private readonly string token;
-
-    public string Token
-    {
-      get { return token; }
-    }
+    public string Token { get; protected set; }
 
     protected TokenReplacerBase(string token)
     {
       Assert.ArgumentNotNullOrEmpty(token, "token");
 
-      this.token = token;
+      this.Token = token;
     }
     
     public virtual void ReplaceToken(IRestRequest request)
