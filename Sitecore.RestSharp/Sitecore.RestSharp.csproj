@@ -89,7 +89,7 @@
     <Compile Include="Serialization\JsonNetSerializer.cs" />
     <Compile Include="Tokens\ITokenReplacer.cs" />
     <Compile Include="Tokens\UnixTimestampToken.cs" />
-    <Compile Include="Tokens\TokenReplacer.cs" />
+    <Compile Include="Tokens\TokenReplacerBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Config\Include\Sitecore.RestSharp.config.example" />
