@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Sitecore.RestSharp")]
-[assembly: AssemblyCopyright("Copyright © Sergey Oleynik 2013")]
+[assembly: AssemblyCopyright("Copyright © 2013 Sergey Oleynik")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

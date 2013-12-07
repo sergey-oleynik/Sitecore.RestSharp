@@ -14,22 +14,33 @@
    limitations under the License.
 */
 
-namespace Sitecore.RestSharp.Parameters
+namespace Sitecore.RestSharp.Tokens
 {
+  using Sitecore.Diagnostics;
+
   using global::RestSharp;
 
-  public class DymamicParameterReplacerWithEmptyChecking : DymamicParameterReplacer
+  public abstract class TokenReplacerBase : ITokenReplacer
   {
-    protected override object GetValue(Parameter parameter)
+    private readonly string token;
+
+    public string Token
     {
-      if (parameter != null && parameter.Value != null)
-      {
-        string str = parameter.Value.ToString();
-
-        return !string.IsNullOrEmpty(str) ? str : null;
-      }
-
-      return null;
+      get { return token; }
     }
+
+    protected TokenReplacerBase(string token)
+    {
+      Assert.ArgumentNotNullOrEmpty(token, "token");
+
+      this.token = token;
+    }
+    
+    public virtual void ReplaceToken(IRestRequest request)
+    {
+      request.AddUrlSegment(this.Token, this.GetValue(request));
+    }
+
+    protected abstract string GetValue(IRestRequest request);
   }
 }
