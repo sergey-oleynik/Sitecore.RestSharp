@@ -21,14 +21,14 @@ namespace Sitecore.RestSharp.Service
   using global::RestSharp;
   using global::RestSharp.Deserializers;
   using global::RestSharp.Serializers;
-  using Sitecore.Reflection;
-  using Sitecore.RestSharp.Extentions;
+  using Sitecore.Configuration;
+  using Sitecore.Diagnostics;
   using Sitecore.RestSharp.Parameters;
   using Sitecore.RestSharp.Request;
   using Sitecore.RestSharp.Tokens;
   using Sitecore.Xml;
 
-  public class ServiceConfiguration : IServiceConfiguration, IInitializable
+  public class ServiceConfiguration : IServiceConfiguration
   {
     public ServiceConfiguration()
     {
@@ -39,9 +39,9 @@ namespace Sitecore.RestSharp.Service
       this.Headers = new Dictionary<string, string>();
     }
 
-    public IRequestProvider RequestProvider { get; protected set; }
+    public IRequestProvider RequestProvider { get; set; }
 
-    public string BaseUrl { get; protected set; }
+    public string BaseUrl { get; set; }
 
     public List<ITokenReplacer> TokenReplacers { get; set; }
 
@@ -53,83 +53,64 @@ namespace Sitecore.RestSharp.Service
 
     public IAuthenticator Authenticator { get; set; }
 
-    public Dictionary<string, IDeserializer> Handlers { get; protected set; }
+    public Dictionary<string, IDeserializer> Handlers { get; set; }
 
-    public Dictionary<string, string> Headers { get; protected set; }
+    public Dictionary<string, string> Headers { get; set; }
 
     #region Initialize
 
-    public bool AssignProperties { get; private set; }
-
-    public virtual void Initialize(XmlNode configNode)
+    public void AddHandler(XmlNode configNode)
     {
-      this.AssignProperties = false;
+      Assert.ArgumentNotNull(configNode, "configNode");
 
-      this.RequestProvider = XmlUtil.GetChildNode("requestProvider", configNode).CreateObject(true) as IRequestProvider ?? new RequestProvider();
+      string contentType = XmlUtil.GetAttribute("contentType", configNode);
 
-      this.BaseUrl = XmlUtil.GetAttribute("baseUrl", configNode);
-
-      this.JsonSerializer = XmlUtil.GetChildNode("jsonSerializer", configNode).CreateObject(true) as ISerializer;
-      this.XmlSerializer = XmlUtil.GetChildNode("xmlSerializer", configNode).CreateObject(true) as ISerializer;
-
-      this.Authenticator = XmlUtil.GetChildNode("authenticator", configNode).CreateObject(true) as IAuthenticator;
-
-      this.AddHandlers(configNode);
-
-      this.AddHeaders(configNode);
-
-      this.AddParameterReplacers(configNode);
-
-      this.AddTokenReplacers(configNode);
-    }
-
-    protected virtual void AddHandlers(XmlNode configNode)
-    {
-      XmlNode handlersNode = XmlUtil.GetChildNode("handlers", configNode);
-      if (handlersNode == null)
+      if (!string.IsNullOrEmpty(contentType))
       {
-        return;
-      }
+        IDeserializer obj = Factory.CreateObject(configNode, true) as IDeserializer;
 
-      foreach (XmlNode childNode in XmlUtil.GetChildNodes(handlersNode, true))
-      {
-        string contentType = XmlUtil.GetAttribute("contentType", childNode);
-        IDeserializer deserializer = childNode.CreateObject(true) as IDeserializer;
-
-        if (!string.IsNullOrEmpty(contentType) && deserializer != null)
+        if (obj != null)
         {
-          this.Handlers.Add(contentType, deserializer);
+          this.Handlers[contentType] = obj;
         }
       }
     }
 
-    protected virtual void AddHeaders(XmlNode configNode)
+    public void AddHeader(XmlNode configNode)
     {
-      XmlNode headersNode = XmlUtil.GetChildNode("headers", configNode);
-      if (headersNode == null)
-      {
-        return;
-      }
-      foreach (XmlNode childNode in XmlUtil.GetChildNodes(headersNode, true))
-      {
-        string name = XmlUtil.GetAttribute("name", childNode);
-        string value = XmlUtil.GetAttribute("value", childNode);
+      Assert.ArgumentNotNull(configNode, "configNode");
 
-        if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(value))
-        {
-          this.Headers.Add(name, value);
-        }
+      string name = XmlUtil.GetAttribute("name", configNode);
+      string value = XmlUtil.GetAttribute("value", configNode);
+
+      if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(value))
+      {
+        this.Headers[name] = value;
       }
     }
 
-    protected virtual void AddParameterReplacers(XmlNode configNode)
+    public void AddTokenReplacer(XmlNode configNode)
     {
-      this.ParameterReplacers.AddRange(XmlUtil.GetChildNode("parameters", configNode).ReadChilds<IParameterReplacer>());
+      Assert.ArgumentNotNull(configNode, "configNode");
+
+      ITokenReplacer obj = Factory.CreateObject(configNode, true) as ITokenReplacer;
+
+      if (obj != null)
+      {
+        this.TokenReplacers.Add(obj);
+      }
     }
 
-    protected virtual void AddTokenReplacers(XmlNode configNode)
+    public void AddParameterReplacer(XmlNode configNode)
     {
-      this.TokenReplacers.AddRange(XmlUtil.GetChildNode("tokens", configNode).ReadChilds<ITokenReplacer>());
+      Assert.ArgumentNotNull(configNode, "configNode");
+
+      IParameterReplacer obj = Factory.CreateObject(configNode, true) as IParameterReplacer;
+
+      if (obj != null)
+      {
+        this.ParameterReplacers.Add(obj);
+      }
     }
     #endregion
   }
