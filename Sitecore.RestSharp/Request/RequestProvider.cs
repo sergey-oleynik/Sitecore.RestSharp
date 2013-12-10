@@ -20,14 +20,12 @@ namespace Sitecore.RestSharp.Request
   using System.Collections.Generic;
   using System.Xml;
 
-  using Sitecore.RestSharp.Extentions;
+  using Sitecore.Configuration;
 
   using global::RestSharp;
   using Sitecore.Diagnostics;
   using Sitecore.RestSharp.Data;
-  using Sitecore.RestSharp.Parameters;
   using Sitecore.RestSharp.Service;
-  using Sitecore.RestSharp.Tokens;
 
   public class RequestProvider : IRequestProvider
   {
@@ -43,7 +41,9 @@ namespace Sitecore.RestSharp.Request
 
     public void AddRequest(XmlNode node)
     {
-      RequestEntry request = node.CreateObject<RequestEntry>();
+      Assert.ArgumentNotNull(node, "node");
+
+      var request = Factory.CreateObject<RequestEntry>(node);
 
       if (request != null)
       {

@@ -68,7 +68,6 @@
     <Compile Include="Service\ServiceConfiguration.cs" />
     <Compile Include="Data\RestEmptyType.cs" />
     <Compile Include="Extentions\DateExtentions.cs" />
-    <Compile Include="Extentions\XmlNodeExtentions.cs" />
     <Compile Include="Parameters\DymamicParameterReplacer.cs" />
     <Compile Include="Parameters\AbsentUrlParametersReplacer.cs" />
     <Compile Include="Parameters\DymamicParameterReplacerWithEmptyChecking.cs" />

@@ -48,7 +48,12 @@ namespace Sitecore.RestSharp.Caching
     {
       var configNode = Factory.GetConfigNode(string.Format(ConfigurationNode + "/service[@name='{0}']", serviceName));
 
-      return configNode.CreateObject(true) as IServiceConfiguration;
+      if (configNode != null)
+      {
+        return Factory.CreateObject(configNode, true) as IServiceConfiguration;
+      }
+
+      return null;
     }
   }
 }
