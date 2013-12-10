@@ -20,6 +20,6 @@ namespace Sitecore.RestSharp.Parameters
 
   public interface IParameterReplacer
   {
-    void ReplaceParameters(IRestRequest request);
+    void ReplaceParameter(IRestRequest request, string parameter);
   }
 }

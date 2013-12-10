@@ -17,20 +17,15 @@
 namespace Sitecore.RestSharp.Tokens
 {
   using System;
-  using System.Globalization;
   using Sitecore.RestSharp.Extentions;
 
   using global::RestSharp;
 
   public class UnixTimestampToken : TokenReplacerBase
   {
-    public UnixTimestampToken(string token) : base(token)
+    protected override object GetValue(IRestRequest request, string token)
     {
-    }
-
-    protected override string GetValue(IRestRequest request)
-    {
-      return this.GetTimestamp().ToString(CultureInfo.InvariantCulture);
+      return this.GetTimestamp();
     }
 
     protected virtual int GetTimestamp()

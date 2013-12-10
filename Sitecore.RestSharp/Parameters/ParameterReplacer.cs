@@ -16,25 +16,26 @@
 
 namespace Sitecore.RestSharp.Parameters
 {
-  using System.Collections.Generic;
   using System.Linq;
 
   using global::RestSharp;
 
-  public abstract class ParameterReplacerBase : IParameterReplacer
+  public class ParameterReplacer : IParameterReplacer
   {
-    public abstract void ReplaceParameters(IRestRequest request);
+    public virtual void ReplaceParameter(IRestRequest request, string parameter)
+    {
+      Parameter param = this.GetParameter(request, parameter);
+
+      if (param != null)
+      {
+        this.SetParameter(request, param);
+      }
+    }
 
     [CanBeNull]
     protected virtual object GetValue(Parameter parameter)
     {
       return parameter != null ? parameter.Value : null;
-    }
-
-    [NotNull]
-    protected virtual IEnumerable<Parameter> GetParameters(IRestRequest request)
-    {
-      return request.Parameters;
     }
 
     [CanBeNull]

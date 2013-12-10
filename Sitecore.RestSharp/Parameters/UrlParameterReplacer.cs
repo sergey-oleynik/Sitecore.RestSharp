@@ -16,16 +16,14 @@
 
 namespace Sitecore.RestSharp.Parameters
 {
-  using System.Collections.Generic;
   using System.Linq;
-
   using global::RestSharp;
 
-  public abstract class SingleUrlParameterReplacerBase : SingleParameterReplacerBase
+  public abstract class UrlParameterReplacer : ParameterReplacer
   {
-    protected override IEnumerable<Parameter> GetParameters(IRestRequest request)
+    protected override Parameter GetParameter(IRestRequest request, string name)
     {
-      return request.Parameters.Where(i => i.Type == ParameterType.UrlSegment);
+      return request.Parameters.FirstOrDefault(p => p.Type == ParameterType.UrlSegment && p.Name == name);
     }
   }
 }

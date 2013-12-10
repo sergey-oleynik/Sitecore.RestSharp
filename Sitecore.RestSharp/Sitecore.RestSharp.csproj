@@ -73,14 +73,9 @@
     <Compile Include="Parameters\AbsentUrlParametersReplacer.cs" />
     <Compile Include="Parameters\DymamicParameterReplacerWithEmptyChecking.cs" />
     <Compile Include="Parameters\IParameterReplacer.cs" />
-    <Compile Include="Parameters\MultiParameterReplacer.cs" />
-    <Compile Include="Parameters\MultiUrlParameterReplacer.cs" />
-    <Compile Include="Parameters\ParameterReplacerBase.cs" />
-    <Compile Include="Parameters\SingleParameterReplacer.cs" />
-    <Compile Include="Parameters\SingleParameterReplacerBase.cs" />
-    <Compile Include="Parameters\SingleParameterReplacerWithEmptyChecking.cs" />
-    <Compile Include="Parameters\SingleUrlParameterReplacerBase.cs" />
-    <Compile Include="Parameters\UrlParameterReplacerBase.cs" />
+    <Compile Include="Parameters\ParameterReplacer.cs" />
+    <Compile Include="Parameters\ParameterReplacerWithEmptyChecking.cs" />
+    <Compile Include="Parameters\UrlParameterReplacer.cs" />
     <Compile Include="RestContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\EntityActionType.cs" />

@@ -32,9 +32,9 @@ namespace Sitecore.RestSharp.Service
 
     string BaseUrl { get; }
 
-    List<ITokenReplacer> TokenReplacers { get; }
+    Dictionary<string, ITokenReplacer> TokenReplacers { get; }
 
-    List<IParameterReplacer> ParameterReplacers { get; }
+    Dictionary<string, IParameterReplacer> ParameterReplacers { get; }
 
     ISerializer XmlSerializer { get; }
 

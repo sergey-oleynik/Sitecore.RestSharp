@@ -18,7 +18,7 @@ namespace Sitecore.RestSharp.Parameters
 {
   using global::RestSharp;
 
-  public class AbsentUrlParametersReplacer : MultiUrlParameterReplacer
+  public class AbsentUrlParametersReplacer : UrlParameterReplacer
   {
     protected override void SetParameter(IRestRequest request, Parameter parameter)
     {

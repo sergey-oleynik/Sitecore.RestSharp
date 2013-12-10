@@ -20,8 +20,6 @@ namespace Sitecore.RestSharp.Tokens
 
   public interface ITokenReplacer
   {
-    string Token { get; }
-
-    void ReplaceToken(IRestRequest request);
+    void ReplaceToken(IRestRequest request, string token);
   }
 }

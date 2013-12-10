@@ -18,7 +18,7 @@ namespace Sitecore.RestSharp.Parameters
 {
   using global::RestSharp;
 
-  public class DymamicParameterReplacer : SingleParameterReplacer
+  public class DymamicParameterReplacer : ParameterReplacer
   {
     protected override void SetParameter(IRestRequest request, Parameter parameter)
     {

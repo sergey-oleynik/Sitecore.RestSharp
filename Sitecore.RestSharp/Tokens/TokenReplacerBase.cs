@@ -16,26 +16,20 @@
 
 namespace Sitecore.RestSharp.Tokens
 {
-  using Sitecore.Diagnostics;
-
   using global::RestSharp;
 
   public abstract class TokenReplacerBase : ITokenReplacer
   {
-    public string Token { get; protected set; }
-
-    protected TokenReplacerBase(string token)
+    public virtual void ReplaceToken(IRestRequest request, string token)
     {
-      Assert.ArgumentNotNullOrEmpty(token, "token");
+      object value = this.GetValue(request, token);
 
-      this.Token = token;
-    }
-    
-    public virtual void ReplaceToken(IRestRequest request)
-    {
-      request.AddUrlSegment(this.Token, this.GetValue(request));
+      if (value != null)
+      {
+        request.AddUrlSegment(token, value.ToString());
+      }
     }
 
-    protected abstract string GetValue(IRestRequest request);
+    protected abstract object GetValue(IRestRequest request, string token);
   }
 }

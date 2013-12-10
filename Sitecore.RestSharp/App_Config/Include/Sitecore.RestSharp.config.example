@@ -21,7 +21,7 @@
         </headers>
 
         <tokens hint="raw:AddTokenReplacer">
-          <add type="Namespace.TypeName, Assembly"/>
+          <add name="$name" type="Namespace.TypeName, Assembly"/>
         </tokens>
 
         <parameters hint="raw:AddParameterReplacer">

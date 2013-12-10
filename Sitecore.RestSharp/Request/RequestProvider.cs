@@ -129,9 +129,9 @@ namespace Sitecore.RestSharp.Request
         restRequest.AddBody(body);
       }
 
-      foreach (ITokenReplacer replacer in serviceConfiguration.TokenReplacers)
+      foreach (var pair in serviceConfiguration.TokenReplacers)
       {
-        replacer.ReplaceToken(restRequest);
+        pair.Value.ReplaceToken(restRequest, pair.Key);
       }
 
       if (parameters != null && parameters.Count > 0)
@@ -139,9 +139,9 @@ namespace Sitecore.RestSharp.Request
         restRequest.Parameters.AddRange(parameters);
       }
 
-      foreach (IParameterReplacer replacer in serviceConfiguration.ParameterReplacers)
+      foreach (var pair in serviceConfiguration.ParameterReplacers)
       {
-        replacer.ReplaceParameters(restRequest);
+        pair.Value.ReplaceParameter(restRequest, pair.Key);
       }
 
       return restRequest;

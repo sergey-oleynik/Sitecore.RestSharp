@@ -32,8 +32,8 @@ namespace Sitecore.RestSharp.Service
   {
     public ServiceConfiguration()
     {
-      this.TokenReplacers = new List<ITokenReplacer>();
-      this.ParameterReplacers = new List<IParameterReplacer>();
+      this.TokenReplacers = new Dictionary<string, ITokenReplacer>();
+      this.ParameterReplacers = new Dictionary<string,IParameterReplacer>();
 
       this.Handlers = new Dictionary<string, IDeserializer>();
       this.Headers = new Dictionary<string, string>();
@@ -43,9 +43,9 @@ namespace Sitecore.RestSharp.Service
 
     public string BaseUrl { get; set; }
 
-    public List<ITokenReplacer> TokenReplacers { get; set; }
+    public Dictionary<string, ITokenReplacer> TokenReplacers { get; set; }
 
-    public List<IParameterReplacer> ParameterReplacers { get; set; }
+    public Dictionary<string, IParameterReplacer> ParameterReplacers { get; set; }
 
     public ISerializer XmlSerializer { get; set; }
 
@@ -93,11 +93,16 @@ namespace Sitecore.RestSharp.Service
     {
       Assert.ArgumentNotNull(configNode, "configNode");
 
-      ITokenReplacer obj = Factory.CreateObject(configNode, true) as ITokenReplacer;
+      string name = XmlUtil.GetAttribute("name", configNode);
 
-      if (obj != null)
+      if (!string.IsNullOrEmpty(name))
       {
-        this.TokenReplacers.Add(obj);
+        ITokenReplacer obj = Factory.CreateObject(configNode, true) as ITokenReplacer;
+
+        if (obj != null)
+        {
+          this.TokenReplacers[name] = obj;
+        }
       }
     }
 
@@ -105,11 +110,16 @@ namespace Sitecore.RestSharp.Service
     {
       Assert.ArgumentNotNull(configNode, "configNode");
 
-      IParameterReplacer obj = Factory.CreateObject(configNode, true) as IParameterReplacer;
+      string name = XmlUtil.GetAttribute("name", configNode);
 
-      if (obj != null)
+      if (!string.IsNullOrEmpty(name))
       {
-        this.ParameterReplacers.Add(obj);
+        IParameterReplacer obj = Factory.CreateObject(configNode, true) as IParameterReplacer;
+
+        if (obj != null)
+        {
+          this.ParameterReplacers[name] = obj;
+        }
       }
     }
     #endregion

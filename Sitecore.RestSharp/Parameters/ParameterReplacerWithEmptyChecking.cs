@@ -18,16 +18,18 @@ namespace Sitecore.RestSharp.Parameters
 {
   using global::RestSharp;
 
-  public class MultiParameterReplacer : ParameterReplacerBase
+  public class ParameterReplacerWithEmptyChecking : ParameterReplacer
   {
-    public override void ReplaceParameters(IRestRequest request)
+    protected override object GetValue(Parameter parameter)
     {
-      var parameters = this.GetParameters(request);
-
-      foreach (var parameter in parameters)
+      if (parameter != null && parameter.Value != null)
       {
-        this.SetParameter(request, parameter);
+        string str = parameter.Value.ToString();
+
+        return !string.IsNullOrEmpty(str) ? str : null;
       }
+
+      return null;
     }
   }
 }
