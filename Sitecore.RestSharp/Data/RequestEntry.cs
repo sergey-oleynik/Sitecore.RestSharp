@@ -21,16 +21,13 @@ namespace Sitecore.RestSharp.Data
   using System.Web;
   using System.Xml;
 
-  using Sitecore.Configuration;
   using Sitecore.Reflection;
   using Sitecore.Xml;
 
   using global::RestSharp;
 
-  public class RequestEntry : IInitializable, IConstructable
+  public class RequestEntry : IInitializable
   {
-    private bool isMethodAssigned;
-
     public string Name { get; set; }
 
     public EntityActionType ActionType { get; set; }
@@ -56,20 +53,15 @@ namespace Sitecore.RestSharp.Data
       this.Url = HttpUtility.UrlDecode(attributes["url"]);
 
       Method method;
-      this.isMethodAssigned = Enum.TryParse(attributes["method"], true, out method);
+      if (!Enum.TryParse(attributes["method"], true, out method))
+      {
+        method = this.GetDefaultMethod(configNode.LocalName);
+      }
 
       this.Method = method;
 
       this.RequestType = ReflectionUtil.GetTypeInfo(attributes["requestType"] ?? string.Empty) ?? typeof(RestEmptyType);
       this.ResponseType = ReflectionUtil.GetTypeInfo(attributes["responseType"] ?? string.Empty) ?? typeof(RestEmptyType);
-    }
-
-    public void Constructed(XmlNode configuration)
-    {
-      if (!this.isMethodAssigned)
-      {
-        this.Method = this.GetDefaultMethod(configuration.LocalName);
-      }
     }
 
     public bool AssignProperties { get; private set; }
