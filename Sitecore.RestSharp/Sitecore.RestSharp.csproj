@@ -85,10 +85,6 @@
     <Compile Include="Tokens\UnixTimestampToken.cs" />
     <Compile Include="Tokens\TokenReplacerBase.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App_Config\Include\Sitecore.RestSharp.config.example" />
-  </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
