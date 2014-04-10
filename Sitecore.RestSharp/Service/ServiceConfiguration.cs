@@ -1,5 +1,5 @@
 ﻿/*
-   Copyright 2013 Sergey Oleynik
+   Copyright 2014 Sergey Oleynik
  
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -43,19 +43,19 @@ namespace Sitecore.RestSharp.Service
 
     public string BaseUrl { get; set; }
 
-    public Dictionary<string, ITokenReplacer> TokenReplacers { get; set; }
-
-    public Dictionary<string, IParameterReplacer> ParameterReplacers { get; set; }
-
     public ISerializer XmlSerializer { get; set; }
 
     public ISerializer JsonSerializer { get; set; }
 
     public IAuthenticator Authenticator { get; set; }
 
-    public Dictionary<string, IDeserializer> Handlers { get; set; }
+    public Dictionary<string, ITokenReplacer> TokenReplacers { get; private set; }
 
-    public Dictionary<string, string> Headers { get; set; }
+    public Dictionary<string, IParameterReplacer> ParameterReplacers { get; private set; }
+
+    public Dictionary<string, IDeserializer> Handlers { get; private set; }
+
+    public Dictionary<string, string> Headers { get; private set; }
 
     #region Initialize
 

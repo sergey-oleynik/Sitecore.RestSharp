@@ -1,0 +1,37 @@
+﻿/*
+   Copyright 2014 Sergey Oleynik
+ 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+namespace Sitecore.RestSharp.Request
+{
+  using Newtonsoft.Json;
+
+  using Sitecore.Diagnostics;
+  using Sitecore.RestSharp.Service;
+
+  using global::RestSharp;
+
+  public class DebugRequestProvider : RequestProvider
+  {
+    public override IRestResponse<TResult> GetResponse<TResult>(IServiceConfiguration serviceConfiguration, IRestClient client, IRestRequest restRequest)
+    {
+      var response = base.GetResponse<TResult>(serviceConfiguration, client, restRequest);
+
+      Log.Debug("Sitecore.RestSharp: Response data:\n" + JsonConvert.SerializeObject(response, Formatting.Indented), this);
+
+      return response;
+    }
+  }
+}

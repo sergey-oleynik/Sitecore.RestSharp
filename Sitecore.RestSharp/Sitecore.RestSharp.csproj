@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Caching\Cache.cs" />
     <Compile Include="Caching\ICache.cs" />
+    <Compile Include="Request\DebugRequestProvider.cs" />
     <Compile Include="Request\IRequestProvider.cs" />
     <Compile Include="Request\RequestProvider.cs" />
     <Compile Include="Service\IServiceConfiguration.cs" />
