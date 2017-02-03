@@ -21,7 +21,7 @@ namespace Sitecore.RestSharp
   using System.Collections.Generic;
   
   using global::RestSharp;
-
+  using global::RestSharp.Authenticators;
   using Sitecore.Configuration;
   using Sitecore.RestSharp.Caching;
   using Sitecore.RestSharp.Data;
