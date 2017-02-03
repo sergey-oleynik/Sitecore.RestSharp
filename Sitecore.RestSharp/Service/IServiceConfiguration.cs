@@ -21,6 +21,7 @@ namespace Sitecore.RestSharp.Service
   using global::RestSharp;
   using global::RestSharp.Deserializers;
   using global::RestSharp.Serializers;
+  using global::RestSharp.Authenticators;
 
   using Sitecore.RestSharp.Parameters;
   using Sitecore.RestSharp.Tokens;
